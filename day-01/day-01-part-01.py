@@ -1,7 +1,8 @@
+from common.common import read_file
+
+
 def main():
-    with open('day-01.txt') as file:
-        lines = file.readlines()
-        lines = [line.rstrip() for line in lines]
+    lines = read_file('day-01.txt')
     numbers = [int(line) for line in lines]
 
     counter = 0
