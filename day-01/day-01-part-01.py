@@ -1,5 +1,5 @@
 def main():
-    with open('day-01-part-01.txt') as file:
+    with open('day-01.txt') as file:
         lines = file.readlines()
         lines = [line.rstrip() for line in lines]
     numbers = [int(line) for line in lines]
