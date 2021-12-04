@@ -50,6 +50,24 @@ def get_score(number, board, mark_board):
     return number * unmarked_sum
 
 
+def check_rows(mark_board):
+    for row in mark_board:
+        if all(elem == 1 for elem in row):
+            return True
+    return False
+
+
+def check_columns(mark_board):
+    for column_idx in range(len(mark_board[0])):
+        all_ones = True
+        for row in mark_board:
+            if row[column_idx] == 0:
+                all_ones = False
+        if all_ones:
+            return True
+    return False
+
+
 def play_bingo(lines):
     numbers = get_numbers(lines)
     boards = get_boards(lines)
@@ -62,9 +80,8 @@ def play_bingo(lines):
                     if number == cell_value:
                         marks[board_idx][row_idx][colum_idx] = 1
         for marks_idx, mark_board in enumerate(marks):
-            for row in mark_board:
-                if all(elem == 1 for elem in row):
-                    return get_score(number, boards[marks_idx], mark_board)
+            if check_rows(mark_board) or check_columns(mark_board):
+                return get_score(number, boards[marks_idx], mark_board)
 
 
 def main():
@@ -78,6 +95,10 @@ def main():
 if __name__ == '__main__':
     _lines = read_file('day-04-test.txt')
 
+    loser = [[0, 1, 0], [1, 0, 1], [0, 1, 0]]
+    row_winner = [[1, 1, 1], [1, 0, 1], [0, 1, 0]]
+    column_winner = [[0, 1, 1], [1, 0, 1], [0, 1, 1]]
+
     assert get_numbers(_lines) == [7, 4, 9, 5, 11, 17, 23, 2, 0, 14, 21, 24, 10, 16, 13, 6, 15, 25, 12, 22, 18, 20, 8,
                                    19, 3, 26, 1]
     assert len(get_boards(_lines)) == 3
@@ -86,6 +107,11 @@ if __name__ == '__main__':
     assert len(init_marks(get_boards(_lines))) == 3
     assert len(init_marks(get_boards(_lines))[0]) == 5
     assert len(init_marks(get_boards(_lines))[0][0]) == 5
+    assert check_rows(loser) is False
+    assert check_rows(row_winner) is True
+    assert check_columns(loser) is False
+    assert check_columns(column_winner) is True
+
     assert play_bingo(_lines) == 4512
 
     main()
