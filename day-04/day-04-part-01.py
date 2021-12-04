@@ -1,6 +1,5 @@
 from common.common import read_file
 
-
 def get_numbers(lines):
     numbers = lines[0]
     numbers = numbers.split(',')
