@@ -38,6 +38,7 @@ def get_power_consumtion(lines):
 
     return int(gamma, 2) * int(epsilon, 2)
 
+
 def main():
     lines = read_file('day-03.txt')
 
@@ -47,21 +48,7 @@ def main():
 
 
 if __name__ == '__main__':
-    test_data = """
-00100
-11110
-10110
-10111
-10101
-01111
-00111
-11100
-10000
-11001
-00010
-01010
-"""
-    _lines = test_data.split()
+    _lines = read_file('day-03-test.txt')
 
     assert int(get_gamma(_lines), 2) == 22
     assert int(get_epsilon(get_gamma(_lines)), 2) == 9
