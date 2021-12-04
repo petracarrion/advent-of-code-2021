@@ -9,3 +9,5 @@
 * [day-03](day-03)
     * [day-03-part-01.py](day-03/day-03-part-01.py)
     * [day-03-part-02.py](day-03/day-03-part-02.py)
+* [day-04](day-04)
+    * [day-04-part-01.py](day-04/day-04-part-01.py)
