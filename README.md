@@ -14,3 +14,5 @@
     * [day-04-part-02.py](day-04/day-04-part-02.py)
 * [day-05](day-05)
     * [day-05.py](day-05/day-05.py)
+* [day-06](day-06)
+    * [day-06.py](day-06/day-06.py)
