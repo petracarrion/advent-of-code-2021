@@ -1,5 +1,4 @@
 import sys
-from collections import Counter
 from functools import lru_cache
 
 from common.common import read_file, timing
@@ -21,13 +20,12 @@ def calculate_non_constant_fuel(distance):
 
 def calculate_fuel(points, position, constant_rate):
     fuel = 0
-    point_count = Counter(points)
-    for point, count in point_count.items():
+    for point in points:
         distance = abs(position - point)
         if constant_rate:
-            fuel += distance * count
+            fuel += distance
         else:
-            fuel += calculate_non_constant_fuel(distance) * count
+            fuel += calculate_non_constant_fuel(distance)
     return fuel
 
 
