@@ -16,7 +16,6 @@ def main():
         lines.append(f'    * [{file[1]}]({file[0]}/{file[1]})')
         last_file = file
 
-    print(lines)
     with open('README.md', 'w') as f:
         for line in lines:
             f.write("%s\n" % line)
