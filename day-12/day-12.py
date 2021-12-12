@@ -3,7 +3,8 @@ from common.common import read_file
 
 def get_graph(lines):
     graph = [tuple(line.split('-')) for line in lines if not line.startswith('end-') and not line.endswith('-start')]
-    graph += [tuple(line.split('-')[::-1]) for line in lines if not line.startswith('start-') and not line.endswith('-end')]
+    graph += [tuple(line.split('-')[::-1]) for line in lines if
+              not line.startswith('start-') and not line.endswith('-end')]
     return tuple(set(graph))
 
 
