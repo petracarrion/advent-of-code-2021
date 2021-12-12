@@ -1,9 +1,4 @@
-from functools import lru_cache
-
 from common.common import read_file
-import sys
-
-sys.setrecursionlimit(150000)
 
 
 def get_graph(lines):
@@ -22,7 +17,6 @@ def remove_lower(graph, node):
     return graph
 
 
-@lru_cache(maxsize=None)
 def remove_lower_visited_twice(graph, path, node):
     lower_in_path = [node for node in path[1:] if node.islower()]
     if node.islower():
@@ -49,7 +43,6 @@ def test_remove_lower_visited_twice():
     assert r1 == e1
 
 
-@lru_cache(maxsize=None)
 def find_all_paths(graph, path=None, start='start', end='end', revisit_lower=False):
     if path is None:
         path = ()
