@@ -39,7 +39,6 @@ def get_graph(grid):
     graph = {}
     for y in range(height):
         for x in range(width):
-            # N E S W
             connections = {}
 
             if y - 1 >= 0:
@@ -95,7 +94,7 @@ def get_dijkstra(graph, start, goal):
     return path, dist[goal]
 
 
-def get_lowest_total_rist(lines, factor=1):
+def get_lowest_total_risk(lines, factor=1):
     grid = get_grid(lines, factor)
     width, height = get_size(grid)
     graph = get_graph(grid)
@@ -120,17 +119,17 @@ def test(filename):
     assert width == 10
     assert len(graph) == 100
     assert len(enlarged_graph) == 2500
-    assert get_lowest_total_rist(lines) == 40
-    assert get_lowest_total_rist(lines, 5) == 315
+    assert get_lowest_total_risk(lines) == 40
+    assert get_lowest_total_risk(lines, 5) == 315
 
 
 def main(filename):
     lines = read_file(filename)
 
-    p1 = get_lowest_total_rist(lines)
+    p1 = get_lowest_total_risk(lines)
     print(f'{p1=}')
 
-    p2 = get_lowest_total_rist(lines, 5)
+    p2 = get_lowest_total_risk(lines, 5)
     print(f'{p2=}')
 
 
