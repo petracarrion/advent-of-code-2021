@@ -34,5 +34,7 @@
     * [day-14.py](day-14/day-14.py)
 * [day-15](day-15)
     * [day-15.py](day-15/day-15.py)
+* [day-16](day-16)
+    * [day-16.py](day-16/day-16.py)
 * [day-25](day-25)
     * [day-25.py](day-25/day-25.py)
