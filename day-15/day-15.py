@@ -1,17 +1,41 @@
-from collections import Counter
-
 from common.common import read_file
 
 
-def get_grid(lines):
+def get_size(grid):
+    last_pos = list(grid.keys())[-1]
+    width = last_pos[0] + 1
+    height = last_pos[1] + 1
+    return width, height
+
+
+def enlarge_grid(grid, factor):
+    new_map = {}
+    width, height = get_size(grid)
+    for tile_x in range(factor):
+        for tile_y in range(factor):
+            for x in range(width):
+                for y in range(height):
+                    new_pos = (tile_x * width + x, tile_y * height + y)
+                    extra_distance = tile_x + tile_y
+                    new_distance = grid[(x, y)] + extra_distance
+                    while new_distance > 9:
+                        new_distance -= 9
+                    new_map[new_pos] = new_distance
+
+    return new_map
+
+
+def get_grid(lines, factor=1):
     grid = {}
     for y, line in enumerate(lines):
         for x, value in enumerate(list(line)):
             grid[(x, y)] = int(value)
+    grid = enlarge_grid(grid, factor)
     return grid
 
 
-def get_graph(grid, width, height):
+def get_graph(grid):
+    width, height = get_size(grid)
     graph = {}
     for y in range(height):
         for x in range(width):
@@ -36,18 +60,6 @@ def get_graph(grid, width, height):
 
             graph[(x, y)] = connections
     return graph
-
-
-def get_new_pos(i, x, y):
-    if i == 0:
-        new_pos = (x, y-1)
-    elif i == 1:
-        new_pos = (x+1, y)
-    elif i == 2:
-        new_pos = (x, y+1)
-    elif i == 3:
-        new_pos = (x-1, y)
-    return new_pos
 
 
 def generate_path(start, goal, prev):
@@ -83,12 +95,10 @@ def get_dijkstra(graph, start, goal):
     return path, dist[goal]
 
 
-def get_lowest_total_rist(lines):
-    grid = get_grid(lines)
-    last_pos = list(grid.keys())[-1]
-    width = last_pos[0] + 1
-    height = last_pos[1] + 1
-    graph = get_graph(grid, width, height)
+def get_lowest_total_rist(lines, factor=1):
+    grid = get_grid(lines, factor)
+    width, height = get_size(grid)
+    graph = get_graph(grid)
     start = (0, 0)
     end = (width - 1, height - 1)
     path, distance = get_dijkstra(graph, start, end)
@@ -99,25 +109,28 @@ def get_lowest_total_rist(lines):
 def test(filename):
     lines = read_file(filename)
     grid = get_grid(lines)
+    enlarged_grid = get_grid(lines, 5)
     last_pos = list(grid.keys())[-1]
     width = last_pos[0] + 1
     height = last_pos[1] + 1
-    graph = get_graph(grid, width, height)
-    lowest_total_rist = get_lowest_total_rist(lines)
+    graph = get_graph(grid)
+    enlarged_graph = get_graph(enlarged_grid)
 
     assert height == 10
     assert width == 10
     assert len(graph) == 100
-    assert lowest_total_rist == 40
+    assert len(enlarged_graph) == 2500
+    assert get_lowest_total_rist(lines) == 40
+    assert get_lowest_total_rist(lines, 5) == 315
 
 
 def main(filename):
     lines = read_file(filename)
 
     p1 = get_lowest_total_rist(lines)
-    p2 = None
-
     print(f'{p1=}')
+
+    p2 = get_lowest_total_rist(lines, 5)
     print(f'{p2=}')
 
 
